@@ -18,4 +18,9 @@ public class AppleModel {
 		return apples;
 	}
 
+	public void removeById(int appleId) {
+		apples.removeIf(p -> p.getID() == appleId);
+
+	}
+
 }

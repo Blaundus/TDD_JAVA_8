@@ -19,7 +19,7 @@ public class Apple {
 
 	}
 
-	public long getID() {
+	public int getID() {
 		return ID;
 	}
 

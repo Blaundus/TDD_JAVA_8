@@ -26,4 +26,9 @@ public class AppleController {
 
 	}
 
+	public void deleteById(int appleId) {
+		model.removeById(appleId);
+
+	}
+
 }
