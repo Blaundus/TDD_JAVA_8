@@ -26,7 +26,7 @@ import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.AppleController;
 @RunWith(MockitoJUnitRunner.class)
 public class AppleControllerTest {
 
-	private static final int APPLE_ID = 1;
+	private static final long APPLE_ID = 1;
 
 	@InjectMocks
 	private AppleController appleController;

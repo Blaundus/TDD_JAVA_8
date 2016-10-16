@@ -26,7 +26,7 @@ public class AppleController {
 
 	}
 
-	public void deleteById(int appleId) {
+	public void deleteById(long appleId) {
 		model.removeById(appleId);
 
 	}

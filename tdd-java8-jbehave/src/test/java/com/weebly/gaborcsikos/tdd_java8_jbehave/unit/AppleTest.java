@@ -4,6 +4,7 @@
 package com.weebly.gaborcsikos.tdd_java8_jbehave.unit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
@@ -13,15 +14,22 @@ import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.Apple;
  * @author Gábor Csikós
  *
  */
-
 public class AppleTest {
 
 	@Test
 	public void idIncrement() {
-		Apple appleId0 = new Apple();
-		Apple appleId1 = new Apple();
-		assertEquals("Apple appleId0 ID differs", 1, appleId0.getID());
-		assertEquals("Apple appleId1 ID differs", 2, appleId1.getID());
+		Long appleId0 = new Apple().getID();
+		Long appleId1 = new Apple().getID();
+		appleId0++;
+		assertEquals("Apple appleId0 not incremented", appleId0, appleId1);
+
+	}
+
+	@Test
+	public void idNotSame() {
+		Long appleId0 = new Apple().getID();
+		Long appleId1 = new Apple().getID();
+		assertFalse(appleId0.equals(appleId1));
 	}
 
 }
