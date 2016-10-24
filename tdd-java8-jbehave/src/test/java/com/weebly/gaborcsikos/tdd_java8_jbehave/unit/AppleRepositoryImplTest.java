@@ -27,7 +27,6 @@ public class AppleRepositoryImplTest {
 	public void loadApplesEmpty() {
 		List<Apple> result = repository.loadApples();
 		assertEquals(result, AppleFactory.getApples());
-
 	}
 
 }

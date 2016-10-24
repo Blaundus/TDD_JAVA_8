@@ -3,16 +3,17 @@
  */
 package com.weebly.gaborcsikos.tdd_java8_jbehave.apple;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.AppleRepository;
 
 /**
  * @author Gábor Csikós
  *
  */
 public class AppleModel {
-
-	private final List<Apple> apples = new ArrayList<Apple>();
+	private AppleRepository repository = new DummyRepository();
+	private List<Apple> apples = repository.loadApples();
 
 	public List<Apple> getApples() {
 		return apples;
@@ -20,7 +21,10 @@ public class AppleModel {
 
 	public void removeById(long appleId) {
 		apples.removeIf(p -> p.getID() == appleId);
+	}
 
+	public void deleteAll() {
+		apples.clear();
 	}
 
 }

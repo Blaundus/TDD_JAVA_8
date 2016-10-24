@@ -4,7 +4,6 @@
 package com.weebly.gaborcsikos.tdd_java8_jbehave.unit;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -18,10 +17,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.Apple;
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.AppleController;
+import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.AppleModel;
+import com.weebly.gaborcsikos.tdd_java8_jbehave.integration.AppleIntegrationTest;
 
 /**
- * @author Gábor Csikós
- *
+ * @author Gábor Csikós Actually this doesn't need to exists. {@link AppleModel}
+ *         is unit tested, and there is integration tests in
+ *         {@link AppleIntegrationTest}
  */
 @RunWith(MockitoJUnitRunner.class)
 public class AppleControllerTest {
@@ -43,7 +45,7 @@ public class AppleControllerTest {
 
 	@Test
 	public void addApple() {
-		testEmptyList();
+		eraseApples();
 		appleController.add(apple);
 		List<Apple> apples = appleController.list();
 		assertEquals("Apple not added", 1, apples.size());
@@ -51,14 +53,8 @@ public class AppleControllerTest {
 	}
 
 	@Test
-	public void listNoApples() {
-		testEmptyList();
-
-	}
-
-	@Test
 	public void listOneApple() {
-		testEmptyList();
+		eraseApples();
 		appleController.add(apple);
 		List<Apple> apples = appleController.list();
 		assertEquals("Apple not added", 1, apples.size());
@@ -67,7 +63,7 @@ public class AppleControllerTest {
 
 	@Test
 	public void listTwoApples() {
-		testEmptyList();
+		eraseApples();
 		appleController.add(apple);
 		appleController.add(anotherApple);
 		List<Apple> apples = appleController.list();
@@ -78,18 +74,18 @@ public class AppleControllerTest {
 
 	@Test
 	public void deleteAppleByIdFound() {
-		testEmptyList();
+		eraseApples();
 		appleController.add(apple);
 		List<Apple> apples = appleController.list();
 		assertEquals("Apple not added", 1, apples.size());
 		assertEquals("Apple not added", apple, apples.get(0));
 		appleController.deleteById(APPLE_ID);
-		testEmptyList();
+		eraseApples();
 	}
 
 	@Test
 	public void deleteAppleByIdNotFound() {
-		testEmptyList();
+		eraseApples();
 		appleController.add(apple);
 		appleController.add(anotherApple);
 		List<Apple> apples = null;
@@ -105,9 +101,8 @@ public class AppleControllerTest {
 		assertEquals("Apple not added", anotherApple, apples.get(1));
 	}
 
-	private void testEmptyList() {
-		List<Apple> apples = appleController.list();
-		assertTrue("not empty", apples.isEmpty());
+	private void eraseApples() {
+		appleController.deleteAll();
 	}
 
 }

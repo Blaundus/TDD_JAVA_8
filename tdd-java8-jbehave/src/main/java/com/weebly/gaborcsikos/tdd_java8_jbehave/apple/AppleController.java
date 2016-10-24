@@ -17,6 +17,10 @@ public class AppleController {
 		System.exit(0);
 	}
 
+	public void deleteAll() {
+		model.deleteAll();
+	}
+
 	public List<Apple> list() {
 		return model.getApples();
 	}

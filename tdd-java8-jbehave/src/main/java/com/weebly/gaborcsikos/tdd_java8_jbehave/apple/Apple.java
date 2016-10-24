@@ -5,29 +5,32 @@ package com.weebly.gaborcsikos.tdd_java8_jbehave.apple;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.Color;
+import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.Type;
+
 /**
  * @author Gábor Csikós
  *
  */
-public class Apple {
+public class Apple implements Comparable<Apple> {
 
-	private static final AtomicLong count = new AtomicLong(0);
+	public static final int MINIMAL_ID = 0;
+
+	private static final AtomicLong count = new AtomicLong(MINIMAL_ID);
 	private Long ID;
+	private Color color;
+	private Type type;
 
 	public Apple() {
-		ID = count.incrementAndGet();
-
-	}
-
-	public Long getID() {
-		return ID;
+		ID = count.getAndIncrement();
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((ID == null) ? 0 : ID.hashCode());
+		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
 
@@ -40,12 +43,36 @@ public class Apple {
 		if (getClass() != obj.getClass())
 			return false;
 		Apple other = (Apple) obj;
-		if (ID == null) {
-			if (other.ID != null)
-				return false;
-		} else if (!ID.equals(other.ID))
+		if (color != other.color)
+			return false;
+		if (type != other.type)
 			return false;
 		return true;
+	}
+
+	public Long getID() {
+		return ID;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	@Override
+	public int compareTo(Apple o) {
+		return this.ID.compareTo(o.getID());
 	}
 
 }
