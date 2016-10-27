@@ -35,4 +35,8 @@ public class AppleController {
 
 	}
 
+	public Apple getAppleById(Long id) {
+		return model.getAppleById(id);
+	}
+
 }
