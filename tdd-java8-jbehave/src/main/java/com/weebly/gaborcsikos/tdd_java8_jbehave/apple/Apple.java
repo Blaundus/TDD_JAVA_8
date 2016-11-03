@@ -3,6 +3,7 @@
  */
 package com.weebly.gaborcsikos.tdd_java8_jbehave.apple;
 
+import java.time.LocalDate;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.Color;
@@ -20,6 +21,7 @@ public class Apple implements Comparable<Apple> {
 	private Long ID;
 	private Color color;
 	private Type type;
+	private LocalDate packaged;
 
 	public Apple() {
 		ID = count.getAndIncrement();
@@ -34,6 +36,7 @@ public class Apple implements Comparable<Apple> {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + ((packaged == null) ? 0 : packaged.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
@@ -49,9 +52,22 @@ public class Apple implements Comparable<Apple> {
 		Apple other = (Apple) obj;
 		if (color != other.color)
 			return false;
+		if (packaged == null) {
+			if (other.packaged != null)
+				return false;
+		} else if (!packaged.equals(other.packaged))
+			return false;
 		if (type != other.type)
 			return false;
 		return true;
+	}
+
+	public LocalDate getPackaged() {
+		return packaged;
+	}
+
+	public void setPackaged(LocalDate packaged) {
+		this.packaged = packaged;
 	}
 
 	public Color getColor() {

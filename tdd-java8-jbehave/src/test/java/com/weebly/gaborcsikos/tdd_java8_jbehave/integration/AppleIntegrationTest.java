@@ -47,11 +47,11 @@ public class AppleIntegrationTest {
 
 	}
 
+	// TODO Java 8 Date
+
 	// TODO Test here predicates
 
 	// TODO test here streams
-
-	// TODO Java 8 Date
 
 	// TODO JBehave
 }
