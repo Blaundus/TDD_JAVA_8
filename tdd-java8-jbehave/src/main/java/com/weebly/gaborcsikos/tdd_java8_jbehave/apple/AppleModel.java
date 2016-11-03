@@ -3,9 +3,8 @@
  */
 package com.weebly.gaborcsikos.tdd_java8_jbehave.apple;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.AppleRepository;
 
@@ -14,16 +13,12 @@ import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.AppleRepository;
  *
  */
 public class AppleModel {
-	private AppleRepository repository = new DummyRepository();
-	private List<Apple> apples;
-	private Map<Long, Apple> inMemoryApples = new HashMap<Long, Apple>();
 
-	public AppleModel() {
-		apples = repository.loadApples();
-		for (Apple apple : apples) {
-			inMemoryApples.put(apple.getID(), apple);
-		}
-	}
+	public static final String NO_APPLES_FOUND = "Apple not found";
+	public static final String ILLEGAL_STATE = "Apples with same ID found";
+
+	private AppleRepository repository = new DummyRepository();
+	private List<Apple> apples = repository.loadApples();
 
 	public List<Apple> getApples() {
 		return apples;
@@ -38,7 +33,15 @@ public class AppleModel {
 	}
 
 	public Apple getAppleById(Long Id) {
-		return inMemoryApples.get(Id);
+		List<Apple> result = apples.stream().filter(p -> p.getID() == Id).collect(Collectors.toList());
+		if (result.isEmpty()) {
+			// This was a decision to return null
+			return null;
+		}
+		if (result.size() > 1) {
+			throw new IllegalStateException(ILLEGAL_STATE);
+		}
+		return result.get(0);
 	}
 
 }

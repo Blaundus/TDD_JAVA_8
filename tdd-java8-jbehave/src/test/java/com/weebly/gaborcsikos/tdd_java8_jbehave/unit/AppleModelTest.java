@@ -1,5 +1,8 @@
 package com.weebly.gaborcsikos.tdd_java8_jbehave.unit;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -25,13 +28,13 @@ public class AppleModelTest {
 	private AppleModel model;
 
 	@Test
-	public void getApplesTest() {
+	public void getApples() {
 		List<Apple> apples = model.getApples();
 		assertEquals(AppleFactory.getApples(), apples);
 	}
 
 	@Test
-	public void removeByIdTestidFound() {
+	public void removeByIdFound() {
 		List<Apple> apples = model.getApples();
 		Assert.assertFalse(apples.isEmpty());
 		int sizeNow = apples.size();
@@ -43,7 +46,7 @@ public class AppleModelTest {
 	}
 
 	@Test
-	public void removeByIdTestidNotFound() {
+	public void removeByIdNotFound() {
 		List<Apple> apples = model.getApples();
 		Assert.assertFalse(apples.isEmpty());
 		int sizeNow = apples.size();
@@ -52,4 +55,36 @@ public class AppleModelTest {
 		assertEquals(sizeNow, model.getApples().size());
 	}
 
+	@Test
+	public void getApplyByIdFound() {
+
+		List<Apple> apples = model.getApples();
+		Assert.assertFalse(apples.isEmpty());
+
+		Apple actual = model.getAppleById(apples.get(0).getID());
+		assertThat(actual, is(equalTo(apples.get(0))));
+	}
+
+	@Test
+	public void getApplyByIdNotFound() {
+		List<Apple> apples = model.getApples();
+		Assert.assertFalse(apples.isEmpty());
+
+		Assert.assertNull(model.getAppleById(Apple.MINIMAL_ID - 1));
+
+	}
+
+	@Test
+	public void getApplyByIdNotFoundIllegalState() {
+		List<Apple> apples = model.getApples();
+		Assert.assertFalse(apples.isEmpty());
+		apples.add(model.getAppleById(apples.get(0).getID()));
+		try {
+			model.getAppleById(apples.get(0).getID());
+			Assert.fail();
+		} catch (IllegalStateException e) {
+			assertEquals(AppleModel.ILLEGAL_STATE, e.getMessage());
+		}
+
+	}
 }

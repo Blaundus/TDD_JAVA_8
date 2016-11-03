@@ -14,7 +14,7 @@ import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.Type;
  */
 public class Apple implements Comparable<Apple> {
 
-	public static final int MINIMAL_ID = 0;
+	public static final long MINIMAL_ID = 0;
 
 	private static final AtomicLong count = new AtomicLong(MINIMAL_ID);
 	private Long ID;
@@ -23,6 +23,10 @@ public class Apple implements Comparable<Apple> {
 
 	public Apple() {
 		ID = count.getAndIncrement();
+	}
+
+	public Long getID() {
+		return ID;
 	}
 
 	@Override
@@ -48,10 +52,6 @@ public class Apple implements Comparable<Apple> {
 		if (type != other.type)
 			return false;
 		return true;
-	}
-
-	public Long getID() {
-		return ID;
 	}
 
 	public Color getColor() {
