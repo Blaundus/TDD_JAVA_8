@@ -4,6 +4,7 @@
 package com.weebly.gaborcsikos.tdd_java8_jbehave.apple;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.Color;
@@ -22,13 +23,12 @@ public class Apple implements Comparable<Apple> {
 	private Color color;
 	private Type type;
 	private LocalDate packaged;
+	private LocalDateTime examined;
 
 	public Apple() {
 		ID = count.getAndIncrement();
-	}
-
-	public Long getID() {
-		return ID;
+		examined = LocalDateTime.now();
+		packaged = examined.toLocalDate();
 	}
 
 	@Override
@@ -36,6 +36,7 @@ public class Apple implements Comparable<Apple> {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + ((examined == null) ? 0 : examined.hashCode());
 		result = prime * result + ((packaged == null) ? 0 : packaged.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
@@ -52,6 +53,11 @@ public class Apple implements Comparable<Apple> {
 		Apple other = (Apple) obj;
 		if (color != other.color)
 			return false;
+		if (examined == null) {
+			if (other.examined != null)
+				return false;
+		} else if (!examined.equals(other.examined))
+			return false;
 		if (packaged == null) {
 			if (other.packaged != null)
 				return false;
@@ -60,6 +66,11 @@ public class Apple implements Comparable<Apple> {
 		if (type != other.type)
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Apple o) {
+		return this.ID.compareTo(o.getID());
 	}
 
 	public LocalDate getPackaged() {
@@ -86,9 +97,16 @@ public class Apple implements Comparable<Apple> {
 		this.type = type;
 	}
 
-	@Override
-	public int compareTo(Apple o) {
-		return this.ID.compareTo(o.getID());
+	public Long getID() {
+		return ID;
+	}
+
+	public LocalDateTime getExamined() {
+		return examined;
+	}
+
+	public void setExamined(LocalDateTime examined) {
+		this.examined = examined;
 	}
 
 }

@@ -4,6 +4,7 @@
 package com.weebly.gaborcsikos.tdd_java8_jbehave.apple.helper;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.Apple;
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.Color;
@@ -33,6 +34,11 @@ public class AppleBuilder {
 
 	public AppleBuilder withPackeging(LocalDate date) {
 		this.apple.setPackaged(date);
+		return this;
+	}
+
+	public AppleBuilder withExaminationTime(LocalDateTime date) {
+		this.apple.setExamined(date);
 		return this;
 	}
 
