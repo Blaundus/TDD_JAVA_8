@@ -8,5 +8,5 @@ package com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api;
  *
  */
 public enum Type {
-	IDARED, REDCHIEF, GRANNYSMITH;
+	IDARED, REDCHIEF, GRANNYSMITH, JONATHAN;
 }
