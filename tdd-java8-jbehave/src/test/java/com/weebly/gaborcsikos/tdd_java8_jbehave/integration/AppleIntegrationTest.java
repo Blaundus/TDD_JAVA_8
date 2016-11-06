@@ -47,7 +47,4 @@ public class AppleIntegrationTest {
 
 	}
 
-	// TODO Test here with color, type packaged, examined streams
-
-	// TODO JBehave
 }
