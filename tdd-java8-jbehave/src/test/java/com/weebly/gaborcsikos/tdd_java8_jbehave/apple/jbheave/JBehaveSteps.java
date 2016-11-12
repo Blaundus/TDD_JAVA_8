@@ -3,15 +3,13 @@
  */
 package com.weebly.gaborcsikos.tdd_java8_jbehave.apple.jbheave;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.junit.Assert;
 
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.Apple;
+import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.AppleController;
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.Color;
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.Type;
 
@@ -25,12 +23,12 @@ public class JBehaveSteps {
 	private static final int YELLOW_APPLE_COUNT = 33;
 	private static final int REDCHIEF_COUNT = 20;
 	private static final int JONATHAN_COUNT = 14;
-	private List<Apple> apples = new ArrayList<Apple>();
 	private long counted = 0;
+	private AppleController controller = new AppleController();
 
 	@Given("The initial 100 apples")
 	public void init() {
-		apples.clear();
+		controller.deleteAll();
 		addRedApples();
 		addYellowApples();
 		addGreenApples();
@@ -39,13 +37,13 @@ public class JBehaveSteps {
 	@When("I count the $colorString Apples")
 	public void countByColor(String colorString) {
 		Color color = getColortype(colorString.toUpperCase());
-		counted = apples.stream().filter(p -> color == p.getColor()).count();
+		counted = controller.list().stream().filter(p -> color == p.getColor()).count();
 	}
 
 	@When("I count the $typeString types")
 	public void countByType(String typeString) {
 		Type type = getType(typeString.toUpperCase());
-		counted = apples.stream().filter(p -> type == p.getType()).count();
+		counted = controller.list().stream().filter(p -> type == p.getType()).count();
 	}
 
 	@Then("I get $counted apples")
@@ -58,7 +56,7 @@ public class JBehaveSteps {
 			Apple apple = new Apple();
 			apple.setType(Type.GRANNYSMITH);
 			apple.setColor(Color.GREEN);
-			apples.add(apple);
+			controller.add(apple);
 		}
 
 	}
@@ -68,7 +66,7 @@ public class JBehaveSteps {
 			Apple apple = new Apple();
 			apple.setType(Type.IDARED);
 			apple.setColor(Color.YELLOW);
-			apples.add(apple);
+			controller.add(apple);
 		}
 	}
 
@@ -77,13 +75,13 @@ public class JBehaveSteps {
 			Apple apple = new Apple();
 			apple.setType(Type.REDCHIEF);
 			apple.setColor(Color.RED);
-			apples.add(apple);
+			controller.add(apple);
 		}
 		for (int i = 0; i < JONATHAN_COUNT; i++) {
 			Apple apple = new Apple();
 			apple.setType(Type.JONATHAN);
 			apple.setColor(Color.RED);
-			apples.add(apple);
+			controller.add(apple);
 		}
 	}
 
