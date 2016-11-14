@@ -24,17 +24,18 @@ import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.helper.AppleFactory;
 public class AppleIntegrationTest {
 
 	public AppleController controller = new AppleController();
+	private AppleFactory factory = new AppleFactory();
 
 	@Test
 	public void testInit() {
 		List<Apple> applesInBeginning = controller.list();
-		Assert.assertEquals(AppleFactory.getApples(), applesInBeginning);
+		Assert.assertEquals(factory.getApples().size(), applesInBeginning.size());
 	}
 
 	@Test
 	public void appleCRUD() {
 		List<Apple> applesInBeginning = controller.list();
-		Assert.assertEquals(AppleFactory.getApples(), applesInBeginning);
+		Assert.assertEquals(factory.getApples().size(), applesInBeginning.size());
 
 		Apple appleToAdd = new AppleBuilder().withColor(Color.GREEN).withType(Type.GRANNYSMITH).build();
 		controller.add(appleToAdd);

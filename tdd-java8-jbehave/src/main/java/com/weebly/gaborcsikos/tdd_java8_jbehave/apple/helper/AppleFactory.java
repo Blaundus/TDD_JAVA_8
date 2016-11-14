@@ -14,14 +14,19 @@ import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.Apple;
  */
 public class AppleFactory {
 
-	public static List<Apple> getApples() {
-		List<Apple> apples = new ArrayList<>();
+	private List<Apple> apples;
+
+	public AppleFactory() {
+		apples = new ArrayList<>();
 		apples.add(createApple());
 		apples.add(createApple());
+	}
+
+	public List<Apple> getApples() {
 		return apples;
 	}
 
-	private static Apple createApple() {
+	private Apple createApple() {
 		Apple apple = new Apple();
 		return apple;
 	}

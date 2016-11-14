@@ -8,29 +8,33 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.Apple;
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.AppleModel;
-import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.helper.AppleFactory;
+import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.DummyRepository;
+import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.AppleRepository;
 
 /**
  * @author Gábor Csikós
  *
  */
-@RunWith(MockitoJUnitRunner.class)
 public class AppleModelTest {
 
-	@InjectMocks
 	private AppleModel model;
+
+	private AppleRepository repository = new DummyRepository();
+
+	@Before
+	public void init() {
+		model = new AppleModel(repository);
+	}
 
 	@Test
 	public void getApples() {
 		List<Apple> apples = model.getApples();
-		assertEquals(AppleFactory.getApples(), apples);
+		assertEquals(apples.size(), 2);
 	}
 
 	@Test
@@ -85,6 +89,6 @@ public class AppleModelTest {
 		} catch (IllegalStateException e) {
 			assertEquals(AppleModel.ILLEGAL_STATE, e.getMessage());
 		}
-
 	}
+
 }

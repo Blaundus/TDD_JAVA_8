@@ -5,9 +5,11 @@ import org.junit.Test;
 
 public class AppleFactoryTest {
 
+	private AppleFactory factory = new AppleFactory();
+
 	@Test
 	public void test() {
-		Assert.assertEquals(2, AppleFactory.getApples().size());
+		Assert.assertEquals(2, factory.getApples().size());
 	}
 
 }

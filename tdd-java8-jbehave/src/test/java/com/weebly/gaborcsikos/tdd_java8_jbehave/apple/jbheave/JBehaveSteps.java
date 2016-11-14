@@ -11,6 +11,7 @@ import org.junit.Assert;
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.Apple;
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.AppleController;
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.Color;
+import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.MixType;
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.Type;
 
 /**
@@ -37,13 +38,20 @@ public class JBehaveSteps {
 	@When("I count the $colorString Apples")
 	public void countByColor(String colorString) {
 		Color color = getColortype(colorString.toUpperCase());
-		counted = controller.list().stream().filter(p -> color == p.getColor()).count();
+		counted = controller.countByColor(color);
+	}
+
+	@When("I select the $mixString mix")
+	public void selectMix(String mixString) {
+
+		MixType mixType = getMixType(mixString.toUpperCase());
+		// counted = controller.countByMixType(color);
 	}
 
 	@When("I count the $typeString types")
 	public void countByType(String typeString) {
 		Type type = getType(typeString.toUpperCase());
-		counted = controller.list().stream().filter(p -> type == p.getType()).count();
+		counted = controller.countByType(type);
 	}
 
 	@Then("I get $counted apples")
@@ -107,6 +115,18 @@ public class JBehaveSteps {
 			result = Type.GRANNYSMITH;
 		} else if ("JONATHAN".equals(typeString)) {
 			result = Type.JONATHAN;
+		}
+		return result;
+	}
+
+	private MixType getMixType(String mixTypeString) {
+		MixType result = null;
+		if ("RED_APPLE".equals(mixTypeString)) {
+			result = MixType.RED_APPLE;
+		} else if ("ANTI_DOCTOR".equals(mixTypeString)) {
+			result = MixType.ANTI_DOCTOR;
+		} else if ("AUTOMN".equals(mixTypeString)) {
+			result = MixType.AUTOMN;
 		}
 		return result;
 	}

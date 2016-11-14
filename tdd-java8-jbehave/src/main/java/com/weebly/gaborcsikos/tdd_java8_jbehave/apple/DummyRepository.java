@@ -15,6 +15,11 @@ import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.helper.AppleFactory;
 public class DummyRepository implements AppleRepository {
 
 	private List<Apple> apples;
+	private AppleFactory factory;
+
+	public DummyRepository() {
+		factory = new AppleFactory();
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -26,7 +31,7 @@ public class DummyRepository implements AppleRepository {
 	@Override
 	public List<Apple> loadApples() {
 		if (apples == null) {
-			apples = AppleFactory.getApples();
+			apples = factory.getApples();
 		}
 		return apples;
 	}

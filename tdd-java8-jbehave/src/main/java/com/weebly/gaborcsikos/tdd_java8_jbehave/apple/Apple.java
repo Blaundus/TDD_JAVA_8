@@ -35,6 +35,7 @@ public class Apple implements Comparable<Apple> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((ID == null) ? 0 : ID.hashCode());
 		result = prime * result + ((color == null) ? 0 : color.hashCode());
 		result = prime * result + ((examined == null) ? 0 : examined.hashCode());
 		result = prime * result + ((packaged == null) ? 0 : packaged.hashCode());
@@ -51,6 +52,11 @@ public class Apple implements Comparable<Apple> {
 		if (getClass() != obj.getClass())
 			return false;
 		Apple other = (Apple) obj;
+		if (ID == null) {
+			if (other.ID != null)
+				return false;
+		} else if (!ID.equals(other.ID))
+			return false;
 		if (color != other.color)
 			return false;
 		if (examined == null) {

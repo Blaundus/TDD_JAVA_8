@@ -23,10 +23,12 @@ public class AppleRepositoryImplTest {
 	@InjectMocks
 	public DummyRepository repository;
 
+	private AppleFactory factory = new AppleFactory();
+
 	@Test
 	public void loadApplesEmpty() {
 		List<Apple> result = repository.loadApples();
-		assertEquals(result, AppleFactory.getApples());
+		assertEquals(result.size(), factory.getApples().size());
 	}
 
 }
