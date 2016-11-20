@@ -43,9 +43,8 @@ public class JBehaveSteps {
 
 	@When("I select the $mixString mix")
 	public void selectMix(String mixString) {
-
 		MixType mixType = getMixType(mixString.toUpperCase());
-		// counted = controller.countByMixType(color);
+		counted = controller.useMixType(mixType).size();
 	}
 
 	@When("I count the $typeString types")
@@ -55,7 +54,12 @@ public class JBehaveSteps {
 	}
 
 	@Then("I get $counted apples")
-	public void noApplesFound(long countedParam) {
+	public void applesCounted(long countedParam) {
+		Assert.assertEquals("counted apples differ", countedParam, counted);
+	}
+
+	@Then("I get $counted bags.")
+	public void bagsCounted(long countedParam) {
 		Assert.assertEquals("counted apples differ", countedParam, counted);
 	}
 

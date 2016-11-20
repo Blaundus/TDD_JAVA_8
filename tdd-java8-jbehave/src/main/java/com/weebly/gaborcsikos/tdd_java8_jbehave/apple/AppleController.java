@@ -6,6 +6,7 @@ package com.weebly.gaborcsikos.tdd_java8_jbehave.apple;
 import java.util.List;
 
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.Color;
+import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.MixType;
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.Type;
 
 /**
@@ -53,6 +54,10 @@ public class AppleController {
 	public long countByType(Type type) {
 		return model.countByType(type);
 
+	}
+
+	public List<List<Apple>> useMixType(MixType mixType) {
+		return model.useMixType(mixType);
 	}
 
 }
