@@ -3,6 +3,10 @@
  */
 package com.weebly.gaborcsikos.tdd_java8_jbehave.apple.jbheave;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -26,6 +30,7 @@ public class JBehaveSteps {
 	private static final int JONATHAN_COUNT = 14;
 	private long counted = 0;
 	private AppleController controller = new AppleController();
+	private LocalDate date = null;
 
 	@Given("The initial 100 apples")
 	public void init() {
@@ -35,10 +40,31 @@ public class JBehaveSteps {
 		addGreenApples();
 	}
 
+	@Given("The 100 initial apples packed on $date")
+	public void initBestBefore(Date date) {
+		controller.deleteAll();
+		addRedApples();
+		addYellowApples();
+		addGreenApples();
+		setDateOfApples(date);
+	}
+
+	private void setDateOfApples(Date date) {
+		for (Apple apple : controller.list()) {
+			apple.setPackagedFromDate(date);
+		}
+
+	}
+
 	@When("I count the $colorString Apples")
 	public void countByColor(String colorString) {
 		Color color = getColortype(colorString.toUpperCase());
 		counted = controller.countByColor(color);
+	}
+
+	@When("I check the best before date")
+	public void bestBeforeDate() {
+		date = controller.getBestBeforeDate(controller.list().get(0));
 	}
 
 	@When("I select the $mixString mix")
@@ -61,6 +87,12 @@ public class JBehaveSteps {
 	@Then("I get $counted bags.")
 	public void bagsCounted(long countedParam) {
 		Assert.assertEquals("counted apples differ", countedParam, counted);
+	}
+
+	@Then("I see all type is good till $dateParam")
+	public void checkDate(Date dateParam) {
+		LocalDate toAssert = dateParam.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		Assert.assertEquals("Best before date differs", toAssert, date);
 	}
 
 	private void addGreenApples() {

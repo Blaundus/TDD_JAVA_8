@@ -29,8 +29,7 @@ public class AppleMatcher extends TypeSafeMatcher<Apple> {
 		description.appendText("should match ID:").appendText(actual.getID().toString())
 				.appendText("should match color ").appendText(actual.getColor().toString())
 				.appendText("should match type ").appendText(actual.getType().toString())
-				.appendText("should match packaging ").appendText(actual.getPackaged().toString())
-				.appendText("should match examination date ").appendText(actual.getExamined().toString());
+				.appendText("should match packaging ").appendText(actual.getPackaged().toString());
 
 	}
 

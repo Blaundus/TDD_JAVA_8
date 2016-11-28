@@ -3,6 +3,7 @@
  */
 package com.weebly.gaborcsikos.tdd_java8_jbehave.apple;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.weebly.gaborcsikos.tdd_java8_jbehave.apple.api.Color;
@@ -58,6 +59,10 @@ public class AppleController {
 
 	public List<List<Apple>> useMixType(MixType mixType) {
 		return model.useMixType(mixType);
+	}
+
+	public LocalDate getBestBeforeDate(Apple apple) {
+		return model.getBestBeforeDate(apple);
 	}
 
 }

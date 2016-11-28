@@ -3,6 +3,7 @@
  */
 package com.weebly.gaborcsikos.tdd_java8_jbehave.apple;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -133,6 +134,15 @@ public class AppleModel {
 			}
 		}
 		return result;
+	}
+
+	public LocalDate getBestBeforeDate(Apple apple) {
+		for (Apple element : apples) {
+			if (element.getID().equals(apple.getID())) {
+				return apple.getPackaged().plusWeeks(1);
+			}
+		}
+		return null;
 	}
 
 }
